@@ -390,3 +390,19 @@ h3 {
     grid-column: 1 / -1;
   }
 }
+.countdownText {
+  display: block;
+  width: fit-content;
+  margin-top: 8px;
+  margin-left: 0;
+  background: rgba(34, 197, 94, 0.14);
+  color: #bbf7d0;
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+.matchCard small {
+  display: block;
+}
