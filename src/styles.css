@@ -1,0 +1,392 @@
+:root {
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #e5e7eb;
+  background: #0b1020;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.app {
+  width: min(1160px, 100%);
+  margin: 0 auto;
+  padding: 18px;
+}
+
+.hero {
+  min-height: 210px;
+  display: flex;
+  gap: 24px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28px;
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at top left, rgba(96, 165, 250, 0.38), transparent 35%),
+    linear-gradient(135deg, #111827, #1e293b);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+h1 {
+  font-size: clamp(2.2rem, 7vw, 4.6rem);
+  margin: 0;
+  letter-spacing: -0.06em;
+}
+
+h2,
+h3 {
+  margin: 0;
+}
+
+h3 {
+  margin-top: 18px;
+  color: #cbd5e1;
+  font-size: 1rem;
+}
+
+.subtitle {
+  max-width: 680px;
+  color: #cbd5e1;
+  line-height: 1.6;
+}
+
+.eyebrow {
+  color: #93c5fd;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.notifyBtn,
+.searchCard,
+.card,
+.teamPanel,
+.tabs {
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.25);
+}
+
+.notifyBtn,
+.teamPanel button,
+.actions button,
+.goalBtn,
+.commentBox button,
+.tabs button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 16px;
+  background: #e5e7eb;
+  color: #0f172a;
+  font-weight: 800;
+}
+
+.tabs {
+  position: sticky;
+  top: 10px;
+  z-index: 10;
+  margin: 16px 0;
+  padding: 8px;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  backdrop-filter: blur(14px);
+}
+
+.tabs button {
+  background: transparent;
+  color: #cbd5e1;
+  white-space: nowrap;
+}
+
+.tabs button.selected {
+  background: #e5e7eb;
+  color: #0f172a;
+}
+
+.searchCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #111827;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin: 18px 0;
+  padding: 16px;
+  border-radius: 18px;
+}
+
+.searchCard input {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  outline: none;
+  color: #fff;
+}
+
+.teamPanel {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  padding: 18px;
+  border-radius: 20px;
+  background: #172554;
+  border: 1px solid rgba(147, 197, 253, 0.25);
+  margin-bottom: 18px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 18px;
+}
+
+.groupsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.card {
+  background: rgba(17, 24, 39, 0.86);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 18px;
+  border-radius: 22px;
+  margin-bottom: 18px;
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.matchList {
+  display: grid;
+  gap: 12px;
+}
+
+.matchCard {
+  width: 100%;
+  text-align: left;
+  padding: 14px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #0f172a;
+  color: #e5e7eb;
+}
+
+.matchCard.active {
+  outline: 2px solid #93c5fd;
+}
+
+.matchTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.datePill,
+.groupTag,
+.pill {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.datePill {
+  background: rgba(34, 197, 94, 0.18);
+  color: #bbf7d0;
+}
+
+.groupTag,
+.pill {
+  background: #1d4ed8;
+  color: #dbeafe;
+}
+
+.matchTeams {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font-size: 1.15rem;
+}
+
+.matchCard p {
+  margin: 8px 0;
+  color: #cbd5e1;
+}
+
+.matchCard small,
+.comment small,
+.muted {
+  color: #94a3b8;
+}
+
+.detail {
+  display: grid;
+  gap: 12px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.goalBtn {
+  background: #22c55e;
+  color: #052e16;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.teamChips {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.teamChips button {
+  text-align: left;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 8px;
+  background: #0f172a;
+  color: #e5e7eb;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 10px;
+}
+
+.teamChips small {
+  color: #93c5fd;
+  font-size: 0.72rem;
+}
+
+.miniFixtures {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.miniFixtures button {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto;
+  gap: 8px;
+  align-items: center;
+  background: rgba(15, 23, 42, 0.85);
+  color: #e5e7eb;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 10px;
+}
+
+.miniFixtures small {
+  color: #94a3b8;
+}
+
+.commentBox {
+  display: flex;
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.commentBox input {
+  flex: 1;
+  background: #0f172a;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 12px 14px;
+  border-radius: 999px;
+  outline: 0;
+}
+
+.comment {
+  background: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 12px;
+  border-radius: 16px;
+  margin-bottom: 10px;
+}
+
+.discussionTitle {
+  color: #cbd5e1;
+}
+
+.chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 14px 0 20px;
+}
+
+.chips span {
+  background: #1d4ed8;
+  padding: 8px 10px;
+  border-radius: 999px;
+  font-weight: 800;
+}
+
+@media (max-width: 860px) {
+  .hero,
+  .teamPanel {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .grid,
+  .groupsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .commentBox {
+    flex-direction: column;
+  }
+
+  .tabs {
+    border-radius: 22px;
+  }
+
+  .tabs button {
+    padding: 10px 12px;
+  }
+
+  .teamChips {
+    grid-template-columns: 1fr;
+  }
+
+  .miniFixtures button {
+    grid-template-columns: 1fr auto 1fr;
+  }
+
+  .miniFixtures small {
+    grid-column: 1 / -1;
+  }
+}
