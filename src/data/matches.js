@@ -7,10 +7,16 @@ export const matches = [
     "away": "South Africa",
     "awayCode": "RSA",
     "kickoffUTC": "2026-06-18T16:00:00Z",
-    "status": "Scheduled",
-    "homeScore": null,
-    "awayScore": null,
-    "venue": "World Cup Stadium"
+    // --- UPDATED FOR COMPLETED MATCH ---
+    "status": "FT", 
+    "homeScore": 2,
+    "awayScore": 1,
+    "venue": "World Cup Stadium",
+    "goals": [
+      { "minute": 24, "team": "CZE", "player": "T. Souček" },
+      { "minute": 42, "team": "RSA", "player": "P. Tau" },
+      { "minute": 88, "team": "CZE", "player": "P. Schick" }
+    ]
   },
   {
     "id": "66456922",
@@ -20,10 +26,15 @@ export const matches = [
     "away": "Bosnia and Herzegovina",
     "awayCode": "BIH",
     "kickoffUTC": "2026-06-18T19:00:00Z",
-    "status": "Scheduled",
-    "homeScore": null,
-    "awayScore": null,
-    "venue": "World Cup Stadium"
+    // --- UPDATED FOR COMPLETED MATCH ---
+    "status": "FT",
+    "homeScore": 0,
+    "awayScore": 2,
+    "venue": "World Cup Stadium",
+    "goals": [
+      { "minute": 14, "team": "BIH", "player": "E. Džeko" },
+      { "minute": 76, "team": "BIH", "player": "E. Demirović" }
+    ]
   },
   {
     "id": "66456920",
@@ -33,10 +44,15 @@ export const matches = [
     "away": "Qatar",
     "awayCode": "QAT",
     "kickoffUTC": "2026-06-18T22:00:00Z",
-    "status": "Scheduled",
-    "homeScore": null,
-    "awayScore": null,
-    "venue": "World Cup Stadium"
+    // --- UPDATED FOR COMPLETED MATCH ---
+    "status": "FT",
+    "homeScore": 1,
+    "awayScore": 1,
+    "venue": "World Cup Stadium",
+    "goals": [
+      { "minute": 34, "team": "QAT", "player": "A. Afif" },
+      { "minute": 61, "team": "CAN", "player": "J. David" }
+    ]
   },
   {
     "id": "66456908",
@@ -46,10 +62,15 @@ export const matches = [
     "away": "South Korea",
     "awayCode": "KOR",
     "kickoffUTC": "2026-06-19T01:00:00Z",
-    "status": "Scheduled",
-    "homeScore": null,
-    "awayScore": null,
-    "venue": "World Cup Stadium"
+    // --- UPDATED FOR LIVE SIMULATION ---
+    "status": "LIVE",
+    "homeScore": 1,
+    "awayScore": 0,
+    "minute": 73,
+    "venue": "World Cup Stadium",
+    "goals": [
+      { "minute": 52, "team": "MEX", "player": "S. Giménez" }
+    ]
   },
   {
     "id": "66456944",
@@ -643,7 +664,7 @@ export const flags = {
   "DZA": "🇩🇿",
   "ECU": "🇪🇨",
   "EGY": "🇪🇬",
-  "ENG": "🏴",
+  "ENG": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
   "ESP": "🇪🇸",
   "FRA": "🇫🇷",
   "GER": "🇩🇪",
@@ -665,7 +686,7 @@ export const flags = {
   "POR": "🇵🇹",
   "QAT": "🇶🇦",
   "RSA": "🇿🇦",
-  "SCO": "🏴",
+  "SCO": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
   "SEN": "🇸🇳",
   "SUI": "🇨🇭",
   "SWE": "🇸🇪",

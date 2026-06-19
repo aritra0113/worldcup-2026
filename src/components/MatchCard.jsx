@@ -1,33 +1,69 @@
+import React from "react";
 import { flags } from "../data/matches";
-import {
-  formatKickoff,
-  formatDateOnly,
-  getCountdown
-} from "../utils/dateUtils";
+import { formatKickoff } from "../utils/dateUtils";
 
-function MatchCard({ match, active, now, onClick }) {
+export default function MatchCard({ match, active, onClick }) {
+  const isFinished = match.status === "FT";
+  const isLive = match.status === "LIVE";
+  const hasStarted = isFinished || isLive;
+
+  // Determine badge text and class name dynamically
+  let badgeText = "Scheduled";
+  let badgeClass = "scheduled";
+
+  if (isFinished) {
+    badgeText = "Match ended";
+    badgeClass = "ended";
+  } else if (isLive) {
+    badgeText = `Live • ${match.minute}'`;
+    badgeClass = "live";
+  }
+
   return (
-    <button className={`matchCard ${active ? "active" : ""}`} onClick={onClick}>
-      <div className="matchTop">
-        <span className="datePill">{formatDateOnly(match.kickoffUTC)}</span>
-        <span className="groupTag">{match.group}</span>
+    <div 
+      className={`matchCard ${active ? "active" : ""}`} 
+      onClick={onClick}
+      style={{ cursor: "pointer" }}
+    >
+      {/* Top Header Row */}
+      <div className="matchCardHeader">
+        <span className="datePill">
+          {new Date(match.kickoffUTC).toLocaleDateString("en-US", {
+            weekday: "short",
+            month: "short",
+            day: "numeric",
+          })}
+        </span>
+        <span className="groupPill">{match.group}</span>
       </div>
 
-      <div className="matchTeams">
-        <strong>{flags[match.homeCode] || "⚽"} {match.homeCode}</strong>
-        <span>vs</span>
-        <strong>{flags[match.awayCode] || "⚽"} {match.awayCode}</strong>
+      {/* Main Vs Team Code Display Row */}
+      <div className="matchCardTeamsDisplay">
+        <div className="teamCodeBlock">
+          <span className="flagIcon">{flags[match.homeCode] || "⚽"}</span>
+          <span className="codeText">{match.homeCode}</span>
+        </div>
+        
+        <span className="vsSeparator">
+          {hasStarted ? `${match.homeScore} - ${match.awayScore}` : "vs"}
+        </span>
+
+        <div className="teamCodeBlock">
+          <span className="codeText">{match.awayCode}</span>
+          <span className="flagIcon">{flags[match.awayCode] || "⚽"}</span>
+        </div>
       </div>
 
-      <p>{match.home} vs {match.away}</p>
-
-      <small>{formatKickoff(match.kickoffUTC)}</small>
-
-      <span className="countdownText">
-        {getCountdown(match.kickoffUTC, now)}
-      </span>
-    </button>
+      {/* Sub-details (Full Names and Time) */}
+      <div className="matchCardFooter">
+        <p className="fullNamesText">{match.home} vs {match.away}</p>
+        <p className="timeText">{formatKickoff(match.kickoffUTC)}</p>
+        
+        {/* Status Badge */}
+        <span className={`statusBadge ${badgeClass}`}>
+          {badgeText}
+        </span>
+      </div>
+    </div>
   );
 }
-
-export default MatchCard;
