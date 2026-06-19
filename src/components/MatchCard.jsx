@@ -1,5 +1,4 @@
 import React from "react";
-import { flags } from "../data/matches";
 import { formatKickoff } from "../utils/dateUtils";
 
 export default function MatchCard({ match, active, onClick }) {
@@ -34,23 +33,35 @@ export default function MatchCard({ match, active, onClick }) {
             day: "numeric",
           })}
         </span>
-        <span className="groupPill">{match.group}</span>
+        <span className="groupTag">{match.group}</span>
       </div>
 
       {/* Main Vs Team Code Display Row */}
       <div className="matchCardTeamsDisplay">
         <div className="teamCodeBlock">
-          <span className="flagIcon">{flags[match.homeCode] || "⚽"}</span>
+          {/* Explicitly using the new homeISO property */}
+          <img 
+            src={`https://flagcdn.com/w40/${match.homeISO?.toLowerCase()}.png`} 
+            alt={`${match.homeCode} flag`} 
+            style={{ width: "24px", height: "auto", borderRadius: "3px", objectFit: "contain" }}
+            onError={(e) => { e.target.style.display = 'none'; }}
+          />
           <span className="codeText">{match.homeCode}</span>
         </div>
-        
+
         <span className="vsSeparator">
           {hasStarted ? `${match.homeScore} - ${match.awayScore}` : "vs"}
         </span>
 
         <div className="teamCodeBlock">
           <span className="codeText">{match.awayCode}</span>
-          <span className="flagIcon">{flags[match.awayCode] || "⚽"}</span>
+          {/* Explicitly using the new awayISO property */}
+          <img 
+            src={`https://flagcdn.com/w40/${match.awayISO?.toLowerCase()}.png`} 
+            alt={`${match.awayCode} flag`} 
+            style={{ width: "24px", height: "auto", borderRadius: "3px", objectFit: "contain" }}
+            onError={(e) => { e.target.style.display = 'none'; }}
+          />
         </div>
       </div>
 

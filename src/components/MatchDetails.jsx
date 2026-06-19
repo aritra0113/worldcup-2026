@@ -1,7 +1,6 @@
 import React from "react";
 import { Trophy, Star, Bell, Clock, MapPin } from "lucide-react";
 import { formatKickoff, getCountdown } from "../utils/dateUtils";
-import { flags } from "../data/matches";
 
 export default function MatchDetails({ activeMatch, followedTeams, toggleFollow, now, onSimulateGoal }) {
   // Guard case if no match is selected or available
@@ -30,11 +29,19 @@ export default function MatchDetails({ activeMatch, followedTeams, toggleFollow,
         
         {/* Large Scoreboard Banner Layout */}
         <div className="scoreboardBanner">
+          
+          {/* Home Team Side */}
           <div className="scoreboardTeam">
-            <span className="scoreboardFlag">{flags[activeMatch.homeCode] || "⚽"}</span>
+            <img 
+              src={`https://flagcdn.com/w80/${activeMatch.homeISO?.toLowerCase()}.png`} 
+              alt={`${activeMatch.homeCode} flag`} 
+              style={{ width: '64px', height: 'auto', borderRadius: '6px', objectFit: 'contain' }}
+              onError={(e) => { e.target.style.display = 'none'; }}
+            />
             <h3>{activeMatch.home}</h3>
           </div>
 
+          {/* Center Score / VS Tag */}
           <div className="scoreboardCenter">
             {hasStarted ? (
               <h1 className="liveScoreText">
@@ -47,8 +54,14 @@ export default function MatchDetails({ activeMatch, followedTeams, toggleFollow,
             {isLive && <span className="liveTimerBadge">Minute {activeMatch.minute}'</span>}
           </div>
 
+          {/* Away Team Side */}
           <div className="scoreboardTeam">
-            <span className="scoreboardFlag">{flags[activeMatch.awayCode] || "⚽"}</span>
+            <img 
+              src={`https://flagcdn.com/w80/${activeMatch.awayISO?.toLowerCase()}.png`} 
+              alt={`${activeMatch.awayCode} flag`} 
+              style={{ width: '64px', height: 'auto', borderRadius: '6px', objectFit: 'contain' }}
+              onError={(e) => { e.target.style.display = 'none'; }}
+            />
             <h3>{activeMatch.away}</h3>
           </div>
         </div>
@@ -88,7 +101,7 @@ export default function MatchDetails({ activeMatch, followedTeams, toggleFollow,
           {!isFinished && (
             <>
               <p><strong>Kickoff Time:</strong> {formatKickoff(activeMatch.kickoffUTC)}</p>
-              <p><strong>Countdown:</strong> {getCountdown(activeMatch.kickoffUTC, now)}</p>
+              <p className="countdownText"><strong>Countdown:</strong> {getCountdown(activeMatch.kickoffUTC, now)}</p>
             </>
           )}
         </div>
