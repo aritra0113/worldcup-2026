@@ -1,11 +1,4 @@
-import {
-  formatKickoff,
-  formatDateOnly,
-  sameLocalDay,
-  getCountdown
-} from "./utils/dateUtils";
 import React, { useEffect, useMemo, useState } from "react";
-//import { createRoot } from "react-dom/client";
 import {
   Bell,
   Search,
@@ -18,12 +11,19 @@ import {
   ListFilter,
   Clock
 } from "lucide-react";
+
+// Data and Layout Configurations
 import { matches, teams, groups, flags } from "./data/matches";
+import { sameLocalDay, formatKickoff, formatDateOnly } from "./utils/dateUtils";
 import "./styles.css";
+
+// Modular Components
 import MatchCard from "./components/MatchCard";
+import MatchDetails from "./components/MatchDetails";
 
 const STORAGE_KEY = "worldcuppulse_state_v2";
 
+// Local Storage Persistent State Readers
 function readState() {
   try {
     return JSON.parse(localStorage.getItem(STORAGE_KEY)) || { followedTeams: [], comments: {} };
@@ -36,8 +36,7 @@ function writeState(state) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 }
 
-
-
+// Browser Level Notification Permission Handlers
 function canNotify() {
   return "Notification" in window;
 }
@@ -67,62 +66,12 @@ function sendGoalDemo(match) {
     return;
   }
 
-  new Notification(`GOAL! ${flags[match.homeCode] || "⚽"} ${match.homeCode} vs ${match.awayCode}`, {
-    body: `${match.home} scores! Demo goal alert for ${match.group}.`
+  const homeScore = match.homeScore !== null ? match.homeScore : 0;
+  const awayScore = match.awayScore !== null ? match.awayScore : 0;
+
+  new Notification(`GOAL! ${flags[match.homeCode] || "⚽"} ${match.homeCode} ${homeScore} - ${awayScore} ${match.awayCode}`, {
+    body: `Live simulator alert for ${match.group} at ${match.venue}.`
   });
-}
-
-
-function MatchDetails({ activeMatch, followedTeams, toggleFollow, now }) {
-  if (!activeMatch) {
-    return (
-      <div className="card">
-        <p>No match selected.</p>
-      </div>
-    );
-  }
-
-  return (
-    <div className="card">
-      <div className="sectionTitle">
-        <Trophy size={20} />
-        <h2>Match details</h2>
-      </div>
-
-      <div className="detail">
-        <p className="pill">{activeMatch.group}</p>
-        <h2>
-          {flags[activeMatch.homeCode] || "⚽"} {activeMatch.home} vs{" "}
-          {flags[activeMatch.awayCode] || "⚽"} {activeMatch.away}
-        </h2>
-        <p><strong>Kickoff:</strong> {formatKickoff(activeMatch.kickoffUTC)}</p>
-        <p><strong>Countdown:</strong> {getCountdown(activeMatch.kickoffUTC, now)}</p>
-        <p><strong>Status:</strong> {activeMatch.status}</p>
-        <p><strong>Venue:</strong> {activeMatch.venue}</p>
-
-        <div className="actions">
-          <button onClick={() => toggleFollow(activeMatch.homeCode)}>
-            <Star size={16} />
-            {followedTeams.includes(activeMatch.homeCode)
-              ? `Following ${activeMatch.homeCode}`
-              : `Follow ${activeMatch.homeCode}`}
-          </button>
-
-          <button onClick={() => toggleFollow(activeMatch.awayCode)}>
-            <Star size={16} />
-            {followedTeams.includes(activeMatch.awayCode)
-              ? `Following ${activeMatch.awayCode}`
-              : `Follow ${activeMatch.awayCode}`}
-          </button>
-        </div>
-
-        <button className="goalBtn" onClick={() => sendGoalDemo(activeMatch)}>
-          <Bell size={16} />
-          Simulate goal notification
-        </button>
-      </div>
-    </div>
-  );
 }
 
 function App() {
@@ -133,17 +82,19 @@ function App() {
   const [commentText, setCommentText] = useState("");
   const [now, setNow] = useState(new Date());
 
-useEffect(() => {
-  const timer = setInterval(() => {
-    setNow(new Date());
-  }, 1000);
+  // Global Sync Timer Clock loop for matching countdowns
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setNow(new Date());
+    }, 1000);
 
-  return () => clearInterval(timer);
-}, []);
+    return () => clearInterval(timer);
+  }, []);
 
   const followedTeams = state.followedTeams || [];
   const activeMatch = matches.find((m) => m.id === activeMatchId) || matches[0];
 
+  // Filters matches matching input query strings
   const filteredMatches = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return matches;
@@ -156,6 +107,7 @@ useEffect(() => {
     );
   }, [query]);
 
+  // Scans countries matching input query strings
   const matchedTeam = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return null;
@@ -171,9 +123,9 @@ useEffect(() => {
   }, []);
 
   const nextMatches = useMemo(() => {
-    const now = new Date();
+    const currentNow = new Date();
     return matches
-      .filter((m) => new Date(m.kickoffUTC) >= now)
+      .filter((m) => new Date(m.kickoffUTC) >= currentNow)
       .sort((a, b) => new Date(a.kickoffUTC) - new Date(b.kickoffUTC))
       .slice(0, 6);
   }, []);
@@ -223,6 +175,7 @@ useEffect(() => {
 
   return (
     <main className="app">
+      {/* Top Welcome Title Banner */}
       <section className="hero">
         <div>
           <p className="eyebrow">World Cup 2026 MVP</p>
@@ -238,29 +191,26 @@ useEffect(() => {
         </button>
       </section>
 
+      {/* Main Tab Routing Options */}
       <nav className="tabs">
         <button className={tab === "today" ? "selected" : ""} onClick={() => setTab("today")}>
-          <Home size={16} />
-          Today
+          <Home size={16} /> Today
         </button>
         <button className={tab === "groups" ? "selected" : ""} onClick={() => setTab("groups")}>
-          <Users size={16} />
-          Groups
+          <Users size={16} /> Groups
         </button>
         <button className={tab === "fixtures" ? "selected" : ""} onClick={() => setTab("fixtures")}>
-          <ListFilter size={16} />
-          Fixtures
+          <ListFilter size={16} /> Fixtures
         </button>
         <button className={tab === "myteams" ? "selected" : ""} onClick={() => setTab("myteams")}>
-          <Star size={16} />
-          My Teams
+          <Star size={16} /> My Teams
         </button>
         <button className={tab === "discussion" ? "selected" : ""} onClick={() => setTab("discussion")}>
-          <MessageCircle size={16} />
-          Discussion
+          <MessageCircle size={16} /> Discussion
         </button>
       </nav>
 
+      {/* Search Bar Block */}
       <section className="searchCard">
         <Search size={20} />
         <input
@@ -270,6 +220,7 @@ useEffect(() => {
         />
       </section>
 
+      {/* Dynamic Search Preview Matching Row */}
       {matchedTeam && (
         <section className="teamPanel">
           <div>
@@ -285,6 +236,7 @@ useEffect(() => {
         </section>
       )}
 
+      {/* View Case 1: Today/Next Matches */}
       {tab === "today" && (
         <section className="grid">
           <div className="card">
@@ -296,25 +248,27 @@ useEffect(() => {
             <div className="matchList">
               {todayOrNext.map((match) => (
                 <MatchCard
-  key={match.id}
-  match={match}
-  active={match.id === activeMatch?.id}
-  now={now}
-  onClick={() => setActiveMatchId(match.id)}
-/>
+                  key={match.id}
+                  match={match}
+                  active={match.id === activeMatch?.id}
+                  now={now}
+                  onClick={() => setActiveMatchId(match.id)}
+                />
               ))}
             </div>
           </div>
 
           <MatchDetails
-  activeMatch={activeMatch}
-  followedTeams={followedTeams}
-  toggleFollow={toggleFollow}
-  now={now}
-/>
+            activeMatch={activeMatch}
+            followedTeams={followedTeams}
+            toggleFollow={toggleFollow}
+            now={now}
+            onSimulateGoal={sendGoalDemo}
+          />
         </section>
       )}
 
+      {/* View Case 2: Tournament Groups Layout Matrix */}
       {tab === "groups" && (
         <section className="groupsGrid">
           {groups.map((group) => (
@@ -356,6 +310,7 @@ useEffect(() => {
         </section>
       )}
 
+      {/* View Case 3: Complete Tournament Fixture List */}
       {tab === "fixtures" && (
         <section className="grid">
           <div className="card">
@@ -367,12 +322,12 @@ useEffect(() => {
             <div className="matchList">
               {filteredMatches.map((match) => (
                 <MatchCard
-  key={match.id}
-  match={match}
-  active={match.id === activeMatch?.id}
-  now={now}
-  onClick={() => setActiveMatchId(match.id)}
-/>
+                  key={match.id}
+                  match={match}
+                  active={match.id === activeMatch?.id}
+                  now={now}
+                  onClick={() => setActiveMatchId(match.id)}
+                />
               ))}
             </div>
           </div>
@@ -381,10 +336,13 @@ useEffect(() => {
             activeMatch={activeMatch}
             followedTeams={followedTeams}
             toggleFollow={toggleFollow}
+            now={now}
+            onSimulateGoal={sendGoalDemo}
           />
         </section>
       )}
 
+      {/* View Case 4: Custom Bookmarked Teams Feed */}
       {tab === "myteams" && (
         <section className="grid">
           <div className="card">
@@ -408,12 +366,12 @@ useEffect(() => {
               ) : (
                 myTeamMatches.map((match) => (
                   <MatchCard
-                  key={match.id}
-                  match={match}
-                  active={match.id === activeMatch?.id}
-                  now={now}
-                  onClick={() => setActiveMatchId(match.id)}
-                />
+                    key={match.id}
+                    match={match}
+                    active={match.id === activeMatch?.id}
+                    now={now}
+                    onClick={() => setActiveMatchId(match.id)}
+                  />
                 ))
               )}
             </div>
@@ -423,10 +381,13 @@ useEffect(() => {
             activeMatch={activeMatch}
             followedTeams={followedTeams}
             toggleFollow={toggleFollow}
+            now={now}
+            onSimulateGoal={sendGoalDemo}
           />
         </section>
       )}
 
+      {/* View Case 5: Dynamic Match Interactive Comment Timeline */}
       {tab === "discussion" && (
         <section className="card">
           <div className="sectionTitle">
@@ -466,5 +427,4 @@ useEffect(() => {
   );
 }
 
-//createRoot(document.getElementById("root")).render(<App />);
 export default App;
