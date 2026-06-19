@@ -1,3 +1,6 @@
+/* ==========================================================================
+   1. Core Layout Reset & Theme Setup
+   ========================================================================== */
 :root {
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: #e5e7eb;
@@ -27,6 +30,9 @@ button {
   padding: 18px;
 }
 
+/* ==========================================================================
+   2. Hero Section & Typography Rules
+   ========================================================================== */
 .hero {
   min-height: 210px;
   display: flex;
@@ -48,7 +54,8 @@ h1 {
 }
 
 h2,
-h3 {
+h3,
+h4 {
   margin: 0;
 }
 
@@ -72,6 +79,9 @@ h3 {
   font-weight: 800;
 }
 
+/* ==========================================================================
+   3. Global Layout Components & Shadow Ecosystem
+   ========================================================================== */
 .notifyBtn,
 .searchCard,
 .card,
@@ -80,12 +90,14 @@ h3 {
   box-shadow: 0 16px 50px rgba(0, 0, 0, 0.25);
 }
 
+/* Native Button Archetype Framework */
 .notifyBtn,
 .teamPanel button,
 .actions button,
 .goalBtn,
 .commentBox button,
-.tabs button {
+.tabs button,
+.followActionButton {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -98,6 +110,7 @@ h3 {
   font-weight: 800;
 }
 
+/* Sticky Navigation Interface */
 .tabs {
   position: sticky;
   top: 10px;
@@ -124,6 +137,7 @@ h3 {
   color: #0f172a;
 }
 
+/* Query Search Panel */
 .searchCard {
   display: flex;
   align-items: center;
@@ -155,6 +169,7 @@ h3 {
   margin-bottom: 18px;
 }
 
+/* Structural Layout Engines */
 .grid {
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
@@ -187,6 +202,9 @@ h3 {
   gap: 12px;
 }
 
+/* ==========================================================================
+   4. Refactored MatchCard Blueprint
+   ========================================================================== */
 .matchCard {
   width: 100%;
   text-align: left;
@@ -201,7 +219,7 @@ h3 {
   outline: 2px solid #93c5fd;
 }
 
-.matchTop {
+.matchCardHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -209,9 +227,93 @@ h3 {
   margin-bottom: 12px;
 }
 
+.matchCardTeamsDisplay {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 10px 14px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+}
+
+.teamCodeBlock {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.flagIcon {
+  font-size: 1.25rem;
+}
+
+.codeText {
+  font-weight: 800;
+  font-size: 1.05rem;
+}
+
+.vsSeparator {
+  font-weight: 800;
+  color: #93c5fd;
+  background: rgba(147, 197, 253, 0.15);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.matchCardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.fullNamesText {
+  margin: 4px 0 2px 0;
+  color: #cbd5e1;
+  font-size: 0.9rem;
+  width: 100%;
+}
+
+.timeText {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+/* Status Badges */
+.statusBadge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.statusBadge.scheduled {
+  background: #1e293b;
+  color: #94a3b8;
+}
+
+.statusBadge.live {
+  background: #ef4444;
+  color: #fff;
+  animation: pulseBlink 2s infinite;
+}
+
+.statusBadge.ended {
+  background: rgba(239, 68, 68, 0.18);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+/* Pills and Badges */
 .datePill,
 .groupTag,
-.pill {
+.pill,
+.groupPillHeader {
   display: inline-block;
   padding: 6px 10px;
   border-radius: 999px;
@@ -225,21 +327,10 @@ h3 {
 }
 
 .groupTag,
-.pill {
+.pill,
+.groupPillHeader {
   background: #1d4ed8;
   color: #dbeafe;
-}
-
-.matchTeams {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  font-size: 1.15rem;
-}
-
-.matchCard p {
-  margin: 8px 0;
-  color: #cbd5e1;
 }
 
 .matchCard small,
@@ -248,6 +339,191 @@ h3 {
   color: #94a3b8;
 }
 
+.matchCard small {
+  display: block;
+}
+
+.countdownText {
+  display: block;
+  width: fit-content;
+  margin-top: 8px;
+  margin-left: 0;
+  background: rgba(34, 197, 94, 0.14);
+  color: #bbf7d0;
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+/* ==========================================================================
+   5. Refactored MatchDetails Interactive Panel
+   ========================================================================== */
+.groupPillHeader {
+  margin-bottom: 14px;
+}
+
+/* Scoreboard Matrix Container */
+.scoreboardBanner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 20px 12px;
+  border-radius: 16px;
+  margin: 14px 0;
+}
+
+.scoreboardTeam {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 35%;
+  text-align: center;
+}
+
+.scoreboardFlag {
+  font-size: 2.4rem;
+  line-height: 1;
+}
+
+.scoreboardTeam h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+  color: #ffffff;
+}
+
+.scoreboardCenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 30%;
+}
+
+.liveScoreText {
+  font-size: 2.2rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #93c5fd;
+  margin: 0;
+}
+
+.vsBadgeText {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #475569;
+}
+
+.liveTimerBadge {
+  background: #ef4444;
+  color: #ffffff;
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-weight: 800;
+  margin-top: 6px;
+  animation: pulseBlink 2s infinite;
+}
+
+/* Live Event Incidents Logs */
+.matchTimelineContainer {
+  background: rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 14px;
+  border-radius: 12px;
+  margin: 16px 0;
+}
+
+.matchTimelineContainer h4 {
+  margin: 0 0 10px 0;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.goalsList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.goalEventRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px;
+  background: rgba(15, 23, 42, 0.4);
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.eventMinute {
+  color: #93c5fd;
+  font-weight: 800;
+  min-width: 28px;
+}
+
+.eventPlayer {
+  color: #e5e7eb;
+}
+
+.subtleDivider {
+  border: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 16px 0;
+}
+
+.metaInfoGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.95rem;
+  color: #cbd5e1;
+}
+
+.metaInfoGrid p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+/* Follow Operations Framework overrides */
+.actionButtonsContainer {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.followActionButton {
+  flex: 1;
+  background: #0f172a;
+  color: #e5e7eb;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  font-size: 0.85rem;
+  padding: 10px;
+}
+
+.followActionButton.following {
+  background: #e5e7eb;
+  color: #0f172a;
+}
+
+.simulationTrigger {
+  width: 100%;
+}
+
+/* ==========================================================================
+   6. Custom Sub-views (Groups, Lists, Discussions)
+   ========================================================================== */
 .detail {
   display: grid;
   gap: 12px;
@@ -354,6 +630,9 @@ h3 {
   font-weight: 800;
 }
 
+/* ==========================================================================
+   7. Responsive Interface Adaptive Overrides
+   ========================================================================== */
 @media (max-width: 860px) {
   .hero,
   .teamPanel {
@@ -389,20 +668,25 @@ h3 {
   .miniFixtures small {
     grid-column: 1 / -1;
   }
+
+  .actionButtonsContainer {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .scoreboardBanner {
+    padding: 16px 8px;
+  }
+
+  .liveScoreText {
+    font-size: 1.8rem;
+  }
 }
-.countdownText {
-  display: block;
-  width: fit-content;
-  margin-top: 8px;
-  margin-left: 0;
-  background: rgba(34, 197, 94, 0.14);
-  color: #bbf7d0;
-  border: 1px solid rgba(34, 197, 94, 0.25);
-  padding: 6px 10px;
-  border-radius: 999px;
-  font-size: 0.8rem;
-  font-weight: 800;
-}
-.matchCard small {
-  display: block;
+
+/* ==========================================================================
+   8. System Animation Channels
+   ========================================================================== */
+@keyframes pulseBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }
